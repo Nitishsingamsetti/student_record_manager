@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+body{
+    height: 100vh;
+    background: url(./pin1.jpg) no-repeat;
+    background-size: cover;
+}
+
+
+header {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    border: none;
+}
+
+header h1 {
+    font-family:sans-serif;
+    font-size: 30px;
+}
+
+.container {
+    width: 35%;
+    height: 95%;
+    margin:auto;
+    /* 
+    
+    border: 1.5px solid rgba(255, 255, 255, 0.18); */
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(30px);
+    box-shadow: 0px 0px 20px rgba(227, 228, 237, 0.35);
+}
+
+.loginf {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    font-family: "Merriweather", serif;
+    font-weight: lighter;
+    font-style: italic;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+
+input[type='text'],
+[type='email'],
+[type='password'] {
+    padding: 3%;
+    width: 60%;
+    border: none;
+    box-shadow: 2px 1px 2px lightslategray;
+    background:transparent;
+}
+
+input::placeholder{
+    color: black;
+}
+button{
+    width: 30%;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    padding: 0.6rem;
+    background-color: lightblue;
+}
+button h5{
+    font-size:small;
+}
+
+a{
+    text-decoration: none;
+    color:rgb(78, 65, 65);
+}
+
+.tags{
+    display: flex;
+    column-gap: 50px;
+}
