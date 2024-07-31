@@ -8,6 +8,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #f5e1da;
 }
 
 header h1 {
@@ -19,7 +20,7 @@ header h1 {
 .container {
     display: flex;
     margin-top: 15%;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     height: 25rem;
     width: 50rem;
 }
@@ -27,7 +28,7 @@ header h1 {
 
 /* signin container */
 .container .sign {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -57,7 +58,7 @@ header h1 {
 
 /* login container */
 .container .log {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -83,4 +84,24 @@ header h1 {
     width: 12rem;
     padding: 0.8rem;
     border-radius: 4rem;
+    background-color: rgb(241, 75, 75);
+    color: white;
+}
+
+/* footer styling */
+footer{
+    width: 100%;
+    display: flex;
+    column-gap: 55rem;
+    margin-top: 3rem;
+    background-color: #f6eedf;
+}
+footer .desc p,li p{
+    /* font-weight:2px; */
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+footer .contact p{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
 }
