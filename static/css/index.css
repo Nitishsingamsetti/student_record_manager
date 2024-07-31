@@ -1,37 +1,86 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-header h1{
+
+header h1 {
     text-align: center;
-    font-family: monospace; 
-    margin-top: 6%; 
+    font-family: monospace;
+    margin-top: 6%;
 }
 
-.container{
+.container {
     display: flex;
     margin-top: 15%;
     border: 2px solid red;
     height: 25rem;
-    width: 50rem; 
+    width: 50rem;
 }
 
-.container .sign{
+
+/* signin container */
+.container .sign {
     border: 2px solid blue;
     width: 50%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     row-gap: 20%;
+    background-color: rgb(241, 75, 75);
+    border-top-left-radius: 30%;
+    border-bottom-right-radius: 30%;
+
 }
 
+.container .sign .one {
+    text-align: center;
+}
 
+.container .sign .one p {
+    font-size: x-large;
+    color: cornsilk;
+}
 
+.container .sign .two button {
+    width: 12rem;
+    padding: 0.8rem;
+    border-radius: 4rem;
+}
 
+/* login container */
+.container .log {
+    border: 2px solid blue;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 20%;
+    background-color: lavenderblush;
+    border-top-right-radius: 30%;
+    border-bottom-left-radius: 30%;
 
+}
+
+.container .log .three {
+    text-align: center;
+}
+
+.container .log .three p {
+    font-size: x-large;
+    color: rgb(241, 75, 75);
+}
+
+.container .log .four button {
+    width: 12rem;
+    padding: 0.8rem;
+    border-radius: 4rem;
+}
