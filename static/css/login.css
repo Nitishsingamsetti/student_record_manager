@@ -65,11 +65,11 @@ input[type='text'],
 input::placeholder{
     color: black;
 }
-button{
-    width: 30%;
+.btn{
+    width: 12rem;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
-    padding: 0.6rem;
+    padding: 0.5rem;
     background-color: lightblue;
 }
 button h5{
@@ -84,4 +84,10 @@ a{
 .tags{
     display: flex;
     column-gap: 50px;
+}
+
+.bt{
+    display: flex;
+    /* flex-direction: column; */
+    column-gap: 55px;
 }
