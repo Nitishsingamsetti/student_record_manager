@@ -1,6 +1,7 @@
 from flask import Flask,render_template,url_for,request
 import mysql.connector
 from otp import genotp
+from cmail import sendmail
 app=Flask(__name__)
 mydb=mysql.connector.connect(host='localhost',user='root',password='nitish',db='spm')
 
@@ -19,11 +20,13 @@ def sign():
         phno=request.form['phno']
         # print(fname,lname,email,passw,phno)
         otp=genotp()
+        subject="Welcome to sprm"
         cursor=mydb.cursor(buffered=True)
         cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[fname,lname,email,phno,passw])
         mydb.commit()
         cursor.close()
         print('done')
+        
     return render_template('signup.html')
     
 

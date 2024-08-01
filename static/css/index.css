@@ -8,7 +8,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f5e1da;
+    /* background-color: #f5e1da; */
+    background-image: url(./pin\ main.jpg);
 }
 
 header h1 {
@@ -66,8 +67,8 @@ header h1 {
     justify-content: center;
     row-gap: 20%;
     background-color: lavenderblush;
-    border-top-right-radius: 30%;
-    border-bottom-left-radius: 30%;
+    border-top-left-radius: 30%;
+    border-bottom-right-radius: 30%;
 
 }
 
@@ -94,14 +95,16 @@ footer{
     display: flex;
     column-gap: 55rem;
     margin-top: 3rem;
-    background-color: #f6eedf;
+    /* background-color: #f6eedf; */
+    background-color: rgba(177, 173, 173,0.3);
 }
 footer .desc p,li p{
-    /* font-weight:2px; */
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight:lighter
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
 }
 
 footer .contact p{
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight:lighter
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
     
 }
