@@ -1,5 +1,6 @@
 from flask import Flask,render_template,url_for,request
 import mysql.connector
+from otp import genotp
 app=Flask(__name__)
 mydb=mysql.connector.connect(host='localhost',user='root',password='nitish',db='spm')
 
@@ -16,7 +17,8 @@ def sign():
         email=request.form['email']
         passw=request.form['passw']
         phno=request.form['phno']
-        print(fname,lname,email,passw,phno)
+        # print(fname,lname,email,passw,phno)
+        otp=genotp()
         cursor=mydb.cursor(buffered=True)
         cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[fname,lname,email,phno,passw])
         mydb.commit()
