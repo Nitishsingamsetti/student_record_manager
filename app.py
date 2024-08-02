@@ -23,7 +23,7 @@ def sign():
         subject="OTP verification for SPM application"
         body=f'Registration otp for SPM application {otp}'
         sendmail(to=email,subject=subject,body=body)
-        return redirect(url_for('verifyotp'))
+        return redirect(url_for('verifyotp',otp=otp,email=email,fname=fname,lname=lname,passw=passw,phno=phno))
         # cursor=mydb.cursor(buffered=True)
         # cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[fname,lname,email,phno,passw])
         # mydb.commit()
@@ -31,8 +31,19 @@ def sign():
         # print('done')
         
     return render_template('signup.html')
-@app.route('/otp',methods=['GET','POST'])
-def verifyotp():
+@app.route('/otp/<otp>/<email>/<fname>/<lname>/<passw>/<phno>',methods=['GET','POST'])
+def verifyotp(otp,email,fname,lname,passw,phno):
+    if request.method=='POST':
+        uotp=request.form['verify']
+        if uotp==otp:
+            cursor=mydb.cursor(buffered=True)
+            cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[fname,lname,email,phno,passw])
+            mydb.commit()
+            cursor.close()
+            print('done')
+        else:
+            return "the entered otp is wrong please check your mail"
+            
     return render_template('verify.html')
     
 
