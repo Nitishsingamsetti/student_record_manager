@@ -13,6 +13,7 @@
     h1{
         margin-top: 0.5rem;
         text-align: center;
+        color: blanchedalmond;
     }
 
 
@@ -29,16 +30,17 @@
 
     .container p {
         margin-bottom: 0;
+        
     }
     .container{
-        background-color: whitesmoke;
+        /* background-color: whitesmoke; */
         margin-top: 10%;
         width: 20rem;
         height: 300px;
         display: flex;
         justify-content: center;
         align-items: center;
-        /* background: transparent; */
+        background: transparent;
         backdrop-filter: blur(20px);
         box-shadow: 0px 0px 10px;
     }
@@ -47,6 +49,7 @@
     }
     .container p{
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-weight: 600;
     }
     .container input[type="text"]{
         width: 12rem;
@@ -55,6 +58,8 @@
     .container button{
         width: 4rem;
         padding: 2%;
+        background-color: rgb(245, 138, 99);
+        font-weight: 300;
     }
 
     
@@ -66,7 +71,7 @@
         <form method="post">
             <p>Enter your OTP</p>
             <input type="text" placeholder="enter otp" name="verify"></br>
-            <button>submit</button>
+            <button>Submit</button>
 
         </form>
     </div>
