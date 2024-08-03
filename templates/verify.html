@@ -10,13 +10,21 @@
         box-sizing: border-box;
         margin: 0;
     }
+    h1{
+        margin-top: 0.5rem;
+        text-align: center;
+    }
 
 
     body {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: bisque;
+        /* background-color: bisque; */
+        background-image: url(https://i.pinimg.com/736x/ca/e8/72/cae87289ff508d72ac127d83e2f90861.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     .container p {
@@ -25,19 +33,38 @@
     .container{
         background-color: whitesmoke;
         margin-top: 10%;
-        width: 30%;
+        width: 20rem;
         height: 300px;
         display: flex;
         justify-content: center;
         align-items: center;
-        row-gap: 2%;
+        /* background: transparent; */
+        backdrop-filter: blur(20px);
+        box-shadow: 0px 0px 10px;
     }
+    .container p,input[type="text"]{
+        margin-bottom: 1rem;
+    }
+    .container p{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .container input[type="text"]{
+        width: 12rem;
+        padding: 2%;
+    }
+    .container button{
+        width: 4rem;
+        padding: 2%;
+    }
+
+    
 </style>
 
 <body>
+    <h1>OTP VERIFICATION</h1>
     <div class="container">
         <form method="post">
-            <p>ENTER YOUR OTP</p>
+            <p>Enter your OTP</p>
             <input type="text" placeholder="enter otp" name="verify"></br>
             <button>submit</button>
 
