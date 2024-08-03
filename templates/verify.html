@@ -5,22 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
 <style>
-    body{
+    * {
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+
+    body {
         display: flex;
         justify-content: center;
         align-items: center;
+        background-color: bisque;
     }
-    h3{
+
+    .container p {
         margin-bottom: 0;
+    }
+    .container{
+        background-color: whitesmoke;
+        margin-top: 10%;
+        width: 30%;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        row-gap: 2%;
     }
 </style>
 
 <body>
     <div class="container">
         <form method="post">
-            <h3>ENTER YOUR OTP</h3>
+            <p>ENTER YOUR OTP</p>
             <input type="text" placeholder="enter otp" name="verify"></br>
             <button>submit</button>
 
