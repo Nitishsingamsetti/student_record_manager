@@ -1,4 +1,4 @@
-from flask import Flask,render_template,url_for,request,redirect
+from flask import Flask,render_template,url_for,request,redirect,flash
 import mysql.connector
 from otp import genotp
 from cmail import sendmail
@@ -31,7 +31,8 @@ def sign():
             sendmail(to=email,subject=subject,body=body)
             return redirect(url_for('verifyotp',otp=otp,email=email,fname=fname,lname=lname,passw=passw,phno=phno))
         else:
-            return "Email already exists"
+            flash('Email already existed')
+            return redirect(url_for(sign))
         # cursor=mydb.cursor(buffered=True)
         # cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[fname,lname,email,phno,passw])
         # mydb.commit()

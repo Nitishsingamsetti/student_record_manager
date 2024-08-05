@@ -7,6 +7,14 @@
     <title>Student login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
 </head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <center>{{ message }}</center>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 
 <body>
     <header><h1>STUDENT SIGN-UP PAGE</h1></header>
