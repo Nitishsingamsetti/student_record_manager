@@ -4,6 +4,7 @@ from otp import genotp
 from cmail import sendmail
 app=Flask(__name__)
 mydb=mysql.connector.connect(host='localhost',user='root',password='nitish',db='spm')
+app.secret_key=b'\xdb?7\t.\xfc'
 
 @app.route('/')
 def home():
@@ -31,8 +32,8 @@ def sign():
             sendmail(to=email,subject=subject,body=body)
             return redirect(url_for('verifyotp',otp=otp,email=email,fname=fname,lname=lname,passw=passw,phno=phno))
         else:
-            flash('Email already existed')
-            return redirect(url_for(sign))
+            flash('Email already exists')
+            return redirect(url_for('sign'))
         # cursor=mydb.cursor(buffered=True)
         # cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[fname,lname,email,phno,passw])
         # mydb.commit()
