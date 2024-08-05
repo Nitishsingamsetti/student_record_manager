@@ -18,6 +18,10 @@ def sign():
         email=request.form['email']
         passw=request.form['passw']
         phno=request.form['phno']
+        cursor=mydb.cursor(buffered=True)
+        cursor.execute('select count(email) from stu_info where email=%s',[email])
+        data=cursor.fetchall()
+        print(data)
         # print(fname,lname,email,passw,phno)
         otp=genotp()
         subject="OTP verification for SPM application"
