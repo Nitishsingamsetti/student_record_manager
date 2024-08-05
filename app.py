@@ -20,14 +20,18 @@ def sign():
         phno=request.form['phno']
         cursor=mydb.cursor(buffered=True)
         cursor.execute('select count(email) from stu_info where email=%s',[email])
-        data=cursor.fetchall()
-        print(data)
+        data=cursor.fetchone()[0]
+        #data=cursor.fetchall()
+        #print(data)
         # print(fname,lname,email,passw,phno)
-        otp=genotp()
-        subject="OTP verification for SPM application"
-        body=f'Registration otp for SPM application {otp}'
-        sendmail(to=email,subject=subject,body=body)
-        return redirect(url_for('verifyotp',otp=otp,email=email,fname=fname,lname=lname,passw=passw,phno=phno))
+        if data==0:
+            otp=genotp()
+            subject="OTP verification for SPM application"
+            body=f'Registration otp for SPM application {otp}'
+            sendmail(to=email,subject=subject,body=body)
+            return redirect(url_for('verifyotp',otp=otp,email=email,fname=fname,lname=lname,passw=passw,phno=phno))
+        else:
+            return "Email already exists"
         # cursor=mydb.cursor(buffered=True)
         # cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[fname,lname,email,phno,passw])
         # mydb.commit()

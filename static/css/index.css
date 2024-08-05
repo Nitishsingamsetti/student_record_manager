@@ -36,8 +36,8 @@ header h1 {
     align-items: center;
     justify-content: center;
     row-gap: 20%;
-    /* background-color: rgb(241, 75, 75); */
-    background-color: grey;
+    background-color: rgb(241, 75, 75);
+    /* background-color: grey; */
     border-top-left-radius: 30%;
     border-bottom-right-radius: 30%;
 
@@ -79,16 +79,16 @@ header h1 {
 
 .container .log .three p {
     font-size: x-large;
-    /* color: rgb(241, 75, 75); */
-    color: grey;
+    color: rgb(241, 75, 75);
+    /* color: grey; */
 }
 
 .container .log .four button {
     width: 12rem;
     padding: 0.8rem;
     border-radius: 4rem;
-    /* background-color: rgb(241, 75, 75); */
-    background-color : grey;
+    background-color: rgb(241, 75, 75);
+    /* background-color : grey; */
     color: white;
 }
 
