@@ -61,13 +61,13 @@ def verifyotp(data1):
     else:
         if request.method=='POST':
             uotp=request.form['verify']
-            if uotp==data1['otp']:
+            if uotp==data2['otp']:
                 cursor=mydb.cursor(buffered=True)
-                cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[data1['fname'],data1['lname'],data1['email'],data1['phno'],data1['passw']])
+                cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[data2['fname'],data2['lname'],data2['email'],data2['phno'],data2['passw']])
                 mydb.commit()
                 cursor.close()
                 flash('registration succesful')
-                return redirect(url_for('login.html'))
+                return redirect(url_for('login'))
                 #print('done')
             else:
                 return "the entered otp is wrong please check your mail"
@@ -80,7 +80,17 @@ def verifyotp(data1):
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    render_template('login.html')
+    if request.method=='POST':
+        email=request.form['em']
+        passwrd=request.form['pw']
+        try:
+            cursor=mydb.cursor(buffered=True)
+            cursor.execute('select email,password from stu_info where email=%s,[email]')
+            data=cursor.fetchone()[0]
+            print(data)
+        except Exception as e:
+            print(e)
+    return render_template('login.html')
     
 
 app.run(debug=True,use_reloader=True)

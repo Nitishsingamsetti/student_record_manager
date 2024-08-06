@@ -14,12 +14,16 @@
 {% endwith %}
 <body>
     <main>
-        <div>
-            <p>Log into your account</p>
-            <input type="email" placeholder="enter email">
-            <input type="password" placeholder="enter password">
-            <button>submit</button>
-        </div>
+        <form method="post">
+            <div>
+                <p>Log into your account</p>
+                <label>email</label>
+                <input type="email" placeholder="enter email" name="em">
+                <label>Password</label>
+                <input type="password" placeholder="enter password" name="pw">
+                <button>submit</button>
+            </div>
+        </form>
     </main>
 </body>
 </html>
