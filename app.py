@@ -2,6 +2,9 @@ from flask import Flask,render_template,url_for,request,redirect,flash
 import mysql.connector
 from otp import genotp
 from cmail import sendmail
+from key import secret_key
+from stoken import token
+
 app=Flask(__name__)
 mydb=mysql.connector.connect(host='localhost',user='root',password='nitish',db='spm')
 app.secret_key=b'\xdb?7\t.\xfc'
@@ -27,10 +30,11 @@ def sign():
         # print(fname,lname,email,passw,phno)
         if data==0:
             otp=genotp()
+            data={'otp':otp,'email':email,'fname':fname,'lname':lname,'passw':passw,'phno':phno}
             subject="OTP verification for SPM application"
             body=f'Registration otp for SPM application {otp}'
             sendmail(to=email,subject=subject,body=body)
-            return redirect(url_for('verifyotp',otp=otp,email=email,fname=fname,lname=lname,passw=passw,phno=phno))
+            return redirect(url_for('verifyotp',otp=otp,data=token(data=data)))
         else:
             flash('Email already exists')
             return redirect(url_for('sign'))
