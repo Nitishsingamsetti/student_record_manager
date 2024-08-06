@@ -22,6 +22,11 @@ def sign():
         email=request.form['email']
         passw=request.form['passw']
         phno=request.form['phno']
+        try:
+            type(fname)=int
+        except Exception as e:
+            print(e)
+            
         cursor=mydb.cursor(buffered=True)
         cursor.execute('select count(email) from stu_info where email=%s',[email])
         data=cursor.fetchone()[0]
@@ -53,17 +58,21 @@ def verifyotp(data1):
     except Exception as e:
         print(e)
         return "time out of otp"
-    if request.method=='POST':
-        uotp=request.form['verify']
-        if uotp==otp:
-            cursor=mydb.cursor(buffered=True)
-            cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[fname,lname,email,phno,passw])
-            mydb.commit()
-            cursor.close()
-            print('done')
-        else:
-            return "the entered otp is wrong please check your mail"
-            
+    else:
+        if request.method=='POST':
+            uotp=request.form['verify']
+            if uotp==data1['otp']:
+                cursor=mydb.cursor(buffered=True)
+                cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[data1['fname'],data1['lname'],data1['email'],data1['phno'],data1['passw']])
+                mydb.commit()
+                cursor.close()
+                print('done')
+            else:
+                return "the entered otp is wrong please check your mail"
+    
+    finally:
+        print('done')
+    
     return render_template('verify.html')
     
 
