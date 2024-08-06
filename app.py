@@ -22,10 +22,10 @@ def sign():
         email=request.form['email']
         passw=request.form['passw']
         phno=request.form['phno']
-        try:
-            type(fname)=int
-        except Exception as e:
-            print(e)
+        # try:
+        #     type(fname)==int
+        # except Exception as e:
+        #     print(e)
             
         cursor=mydb.cursor(buffered=True)
         cursor.execute('select count(email) from stu_info where email=%s',[email])
@@ -66,7 +66,9 @@ def verifyotp(data1):
                 cursor.execute('insert into stu_info(stu_fname,stu_lname,email,ph_no,password) values(%s,%s,%s,%s,%s)',[data1['fname'],data1['lname'],data1['email'],data1['phno'],data1['passw']])
                 mydb.commit()
                 cursor.close()
-                print('done')
+                flash('registration succesful')
+                return redirect(url_for('login.html'))
+                #print('done')
             else:
                 return "the entered otp is wrong please check your mail"
     
@@ -74,6 +76,11 @@ def verifyotp(data1):
         print('done')
     
     return render_template('verify.html')
+
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    render_template('login.html')
     
 
 app.run(debug=True,use_reloader=True)
