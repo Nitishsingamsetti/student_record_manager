@@ -3,7 +3,7 @@ import mysql.connector
 from otp import genotp
 from cmail import sendmail
 from key import secret_key
-from stoken import token
+from stoken import token,dtoken
 
 app=Flask(__name__)
 mydb=mysql.connector.connect(host='localhost',user='root',password='nitish',db='spm')
@@ -34,7 +34,7 @@ def sign():
             subject="OTP verification for SPM application"
             body=f'Registration otp for SPM application {otp}'
             sendmail(to=email,subject=subject,body=body)
-            return redirect(url_for('verifyotp',otp=otp,data=token(data=data)))
+            return redirect(url_for('verifyotp',data1=token(data=data)))
         else:
             flash('Email already exists')
             return redirect(url_for('sign'))
@@ -45,8 +45,14 @@ def sign():
         # print('done')
         
     return render_template('signup.html')
-@app.route('/otp/<otp>/<email>/<fname>/<lname>/<passw>/<phno>',methods=['GET','POST'])
-def verifyotp(otp,email,fname,lname,passw,phno):
+@app.route('/otp/<data1>',methods=['GET','POST'])
+def verifyotp(data1):
+    try:
+        data2=dtoken(data=data1)
+        print(data2)
+    except Exception as e:
+        print(e)
+        return "time out of otp"
     if request.method=='POST':
         uotp=request.form['verify']
         if uotp==otp:
