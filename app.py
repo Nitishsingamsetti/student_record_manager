@@ -85,11 +85,14 @@ def login():
         passwrd=request.form['pw']
         try:
             cursor=mydb.cursor(buffered=True)
-            cursor.execute('select email,password from stu_info where email=%s,[email]')
+            cursor.execute('select email,password from stu_info where email=%s',[email])
             data=cursor.fetchone()[0]
-            print(data)
+            print(data[1].decode('utf-8'))
         except Exception as e:
             print(e)
+            return "internal problem"
+        else:
+            return 'hi'
     return render_template('login.html')
     
 
