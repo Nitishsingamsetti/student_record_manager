@@ -86,13 +86,17 @@ def login():
         try:
             cursor=mydb.cursor(buffered=True)
             cursor.execute('select email,password from stu_info where email=%s',[email])
-            data=cursor.fetchone()[0]
-            print(data[1].decode('utf-8'))
+            data=cursor.fetchone()
+            print(data[1])
+            
         except Exception as e:
             print(e)
-            return "internal problem"
+            return "email wrong"
         else:
-            return 'hi'
+            if data[1]==passwrd.encode('utf-8'):
+                return render_template('panel.html')
+            else:
+                return flash('invalid password')
     return render_template('login.html')
     
 
