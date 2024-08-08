@@ -98,7 +98,11 @@ def login():
             else:
                 return flash('invalid password')
     return render_template('login.html')
-    
+
+@app.route('/addnotes',methods=['POST','GET'])
+def addnotes():
+    return render_template('notes.html')
+
 
 app.run(debug=True,use_reloader=True)
     
