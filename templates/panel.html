@@ -72,7 +72,7 @@
                 Notes
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item active" href="#">Add Notes</a></li>
+                <li><a class="dropdown-item active" href="{{url_for('addnotes')}}">Add Notes</a></li>
                 <li><a class="dropdown-item active" href="#">Update Notes</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item active" href="#">View All Notes</a></li>
@@ -92,6 +92,7 @@
               <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true">Logout</a>
             </li>
           </ul>
+          {{session.get('email')}}
           <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-danger" type="submit">Search</button>

@@ -1,4 +1,5 @@
-from flask import Flask,render_template,url_for,request,redirect,flash
+from flask import Flask,render_template,url_for,request,redirect,flash,session
+from flask_session import Session
 import mysql.connector
 from otp import genotp
 from cmail import sendmail
@@ -6,6 +7,8 @@ from key import secret_key
 from stoken import token,dtoken
 
 app=Flask(__name__)
+app.config['SESSION_TYPE']='filesystem'
+Session(app)
 mydb=mysql.connector.connect(host='localhost',user='root',password='nitish',db='spm')
 app.secret_key=b'\xdb?7\t.\xfc'
 
@@ -94,6 +97,9 @@ def login():
             return "email wrong"
         else:
             if data[1]==passwrd.encode('utf-8'):
+                session['email']=email
+                if not session.get(email):
+                    session[email]={}
                 return render_template('panel.html')
             else:
                 return flash('invalid password')
@@ -101,6 +107,11 @@ def login():
 
 @app.route('/addnotes',methods=['POST','GET'])
 def addnotes():
+    if request.method=='POST':
+        title=request.form['title']
+        content=request.form['content']
+        cursor=mydb.cursor(buffered=True)
+        #cursor.execute('insert into notes(title,content,added_by) values(%s,%s,%s)',[title,content,])
     return render_template('notes.html')
 
 
