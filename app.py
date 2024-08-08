@@ -107,12 +107,19 @@ def login():
 
 @app.route('/addnotes',methods=['POST','GET'])
 def addnotes():
-    if request.method=='POST':
-        title=request.form['title']
-        content=request.form['content']
-        cursor=mydb.cursor(buffered=True)
-        #cursor.execute('insert into notes(title,content,added_by) values(%s,%s,%s)',[title,content,])
-    return render_template('notes.html')
+    if not session.get('email'):
+        return redirect(url_for('login'))
+    else:    
+        if request.method=='POST':
+            title=request.form['title']
+            content=request.form['content']
+            added_by=session.get('email')
+            cursor=mydb.cursor(buffered=True)
+            cursor.execute('insert into notes(title,note_content,added_by) values(%s,%s,%s)',[title,content,added_by])
+            mydb.commit()
+            cursor.close()
+            flash(f'notes {title} added succesfully')
+        return render_template('notes.html')
 
 
 app.run(debug=True,use_reloader=True)
