@@ -101,6 +101,7 @@ def login():
                 if not session.get(email):
                     session[email]={}
                 return render_template('panel.html')
+            #redirect(url_for('panel'))
             else:
                 return flash('invalid password')
     return render_template('login.html')
@@ -120,6 +121,19 @@ def addnotes():
             cursor.close()
             flash(f'notes {title} added succesfully')
         return render_template('notes.html')
+    
+@app.route('/panel')
+def panel():
+    return render_template('panel.html') 
+
+@app.route('/updatenotes',methods=['POST','GET'])
+def updatenotes():
+    return render_template('updatenotes.html') 
+
+@app.route('/veiwnotes',methods=['POST','GET'])
+def veiwnotes():
+    return render_template('veiwnotes.html')
+       
 
 
 app.run(debug=True,use_reloader=True)
