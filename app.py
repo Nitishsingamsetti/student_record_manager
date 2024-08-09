@@ -131,8 +131,12 @@ def updatenotes():
     return render_template('updatenotes.html') 
 
 @app.route('/veiwnotes',methods=['POST','GET'])
-def veiwnotes():
-    return render_template('veiwnotes.html')
+def allnotes():
+    added_by=session.get('email')
+    cursor=mydb.cursor(buffered=True)
+    cursor.execute('select notes_id,title,created_at from notes where added_by=%s',[added_by])
+    data=cursor.fetchall()
+    return render_template('allnotes.html',data=data)
        
 
 
