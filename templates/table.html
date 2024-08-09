@@ -6,14 +6,22 @@
         <tr>
             <th>Noteside</th>
             <th>Title</th>
+            <th>Created_at</th>
             <th>Link</th>
         </tr>
     </thead>
     <tbody>
+        {% for i in data %}
         <tr>
+            <td>{{i[0]}}</td>
+            <td>{{i[1]}}</td>
+            <td>{{i[2]}}</td>
             <td><a href="">View</a></td>
             <td><a href="">Update</a></td>
             <td><a href="">delete</a></td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
+
+{% endblock %}

@@ -136,7 +136,7 @@ def allnotes():
     cursor=mydb.cursor(buffered=True)
     cursor.execute('select notes_id,title,created_at from notes where added_by=%s',[added_by])
     data=cursor.fetchall()
-    return render_template('allnotes.html',data=data)
+    return render_template('table.html',data=data)
        
 
 
