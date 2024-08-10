@@ -123,7 +123,9 @@ def addnotes():
             mydb.commit()
             cursor.close()
             flash(f'notes {title} added succesfully')
-        return render_template('notes.html')
+            return redirect(url_for('panel'))
+            
+        return render_template('addnotes.html')
     
 @app.route('/panel')
 def panel():
@@ -131,8 +133,22 @@ def panel():
         return redirect(url_for('login'))
     return render_template('panel.html') 
 
-@app.route('/updatenotes',methods=['POST','GET'])
-def updatenotes():
+@app.route('/updatenotes',methods=['PUT','GET'])
+def updatenotes(notes_id):
+    if not session.get('email'):
+        return redirect(url_for('login'))
+    else:
+        cursor=mydb.cursor(buffered=True)
+        cursor.execute('select title,note_content from notes where notes_id=%s',[notes_id])
+        note_data=cursor.fetchone()
+        if request.method=='POST':
+            title=request.form['title']
+            content=request.form['content']
+            cursor=mydb.cursor(buffered=True)
+            cursor.execute('update notes set title=%s,note_content=%s where notes_id=%s',[title,content,notes_id])
+        return render_template('updatenotes.html',note_data=note_data)
+    
+    
     return render_template('updatenotes.html') 
 
 @app.route('/veiwnotes',methods=['POST','GET'])
@@ -161,8 +177,8 @@ def viewnotes(notes_id):
         return redirect(url_for('login'))
     else:
         cursor=mydb.cursor(buffered=True)
-        cursor.excecute('select title,note_content from notes where notes_id=%s',[notes_id])
-        note_data=cursor.fetchall()
+        cursor.execute('select title,note_content from notes where notes_id=%s',[notes_id])
+        note_data=cursor.fetchone()
         return render_template('viewnotes.html',note_data=note_data)
     
     
