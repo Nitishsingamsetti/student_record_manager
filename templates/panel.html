@@ -90,7 +90,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#" tabindex="-1" aria-disabled="true">Logout</a>
+              <a class="nav-link active" href="{{url_for('logout')}}" tabindex="-1" aria-disabled="true">Logout</a>
             </li>
           </ul>
           {{session.get('email')}}

@@ -83,27 +83,30 @@ def verifyotp(data1):
 
 @app.route('/login',methods=['GET','POST'])
 def login():
-    if request.method=='POST':
-        email=request.form['em']
-        passwrd=request.form['pw']
-        try:
-            cursor=mydb.cursor(buffered=True)
-            cursor.execute('select email,password from stu_info where email=%s',[email])
-            data=cursor.fetchone()
-            print(data[1])
-            
-        except Exception as e:
-            print(e)
-            return "email wrong"
-        else:
-            if data[1]==passwrd.encode('utf-8'):
-                session['email']=email
-                if not session.get(email):
-                    session[email]={}
-                return render_template('panel.html')
-            #redirect(url_for('panel'))
+    if session.get('email'):
+        return redirect(url_for('panel'))
+    else:
+        if request.method=='POST':
+            email=request.form['em']
+            passwrd=request.form['pw']
+            try:
+                cursor=mydb.cursor(buffered=True)
+                cursor.execute('select email,password from stu_info where email=%s',[email])
+                data=cursor.fetchone()
+                print(data[1])
+                
+            except Exception as e:
+                print(e)
+                return "email wrong"
             else:
-                return flash('invalid password')
+                if data[1]==passwrd.encode('utf-8'):
+                    session['email']=email
+                    if not session.get(email):
+                        session[email]={}
+                    return render_template('panel.html')
+                #redirect(url_for('panel'))
+                else:
+                    return flash('invalid password')
     return render_template('login.html')
 
 @app.route('/addnotes',methods=['POST','GET'])
@@ -124,6 +127,8 @@ def addnotes():
     
 @app.route('/panel')
 def panel():
+    if not session.get('email'):
+        return redirect(url_for('login'))
     return render_template('panel.html') 
 
 @app.route('/updatenotes',methods=['POST','GET'])
@@ -145,6 +150,10 @@ def allnotes():
 def logout():
     if session.get('email'):
         session.pop('email')
+        return redirect(url_for('login'))
+    else:
+        return redirect(url_for('login'))
+        
         
 
 
