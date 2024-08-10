@@ -132,12 +132,20 @@ def updatenotes():
 
 @app.route('/veiwnotes',methods=['POST','GET'])
 def allnotes():
-    added_by=session.get('email')
-    cursor=mydb.cursor(buffered=True)
-    cursor.execute('select notes_id,title,created_at from notes where added_by=%s',[added_by])
-    data=cursor.fetchall()
-    return render_template('table.html',data=data)
-       
+    if not session.get('email'):
+        return redirect(url_for('login'))
+    else: 
+        added_by=session.get('email')
+        cursor=mydb.cursor(buffered=True)
+        cursor.execute('select notes_id,title,created_at from notes where added_by=%s',[added_by])
+        data=cursor.fetchall()
+        return render_template('table.html',data=data)
+    
+@app.route('/logout')
+def logout():
+    if session.get('email'):
+        session.pop('email')
+        
 
 
 app.run(debug=True,use_reloader=True)
