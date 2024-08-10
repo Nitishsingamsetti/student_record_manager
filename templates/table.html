@@ -1,7 +1,8 @@
 {% extends 'panel.html' %}
 {% block content %}
 
-<table>
+
+<table style="border: 2px solid black;">
     <thead>
         <tr>
             <th>Noteside</th>
@@ -16,7 +17,7 @@
             <td>{{i[0]}}</td>
             <td>{{i[1]}}</td>
             <td>{{i[2]}}</td>
-            <td><a href="">View</a></td>
+            <td><a href="{{url_for('viewnotes',notes_id=i[0])}}">View</a></td>
             <td><a href="">Update</a></td>
             <td><a href="">delete</a></td>
         </tr>

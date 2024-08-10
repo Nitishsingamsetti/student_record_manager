@@ -153,8 +153,19 @@ def logout():
         return redirect(url_for('login'))
     else:
         return redirect(url_for('login'))
+
         
-        
+@app.route('/viewnotes/<notes_id>')
+def viewnotes(notes_id):
+    if not session.get('email'):
+        return redirect(url_for('login'))
+    else:
+        cursor=mydb.cursor(buffered=True)
+        cursor.excecute('select title,note_content from notes where notes_id=%s',[notes_id])
+        note_data=cursor.fetchall()
+        return render_template('viewnotes.html',note_data=note_data)
+    
+    
 
 
 app.run(debug=True,use_reloader=True)
