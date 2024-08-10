@@ -2,7 +2,7 @@
 {% block content %}
 
 
-<table style="border: 2px solid black;"">
+<table style="border: 2px solid black;">
     <thead>
         <tr>
             <th>Noteside</th>
@@ -18,8 +18,8 @@
             <td>{{i[1]}}</td>
             <td>{{i[2]}}</td>
             <td><a href="{{url_for('viewnotes',notes_id=i[0])}}">View</a></td>
-            <td><a href="">Update</a></td>
-            <td><a href="">delete</a></td>
+            <td><a href="{{url_for('updatenotes',notes_id=i[0])}}">Update</a></td>
+            <td><a href="{{url_for('deletenotes',notes_id=i[0])}}">delete</a></td>
         </tr>
         {% endfor %}
     </tbody>
