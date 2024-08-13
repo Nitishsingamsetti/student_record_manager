@@ -148,7 +148,7 @@ def updatenotes(notes_id):
             mydb.commit()
             cursor.close()
             flash(f'notes {title} updated succesfully')
-            return redirect(url_for('updatenotes',notes_id=notes_id))
+            return redirect(url_for('panel'))
             
         return render_template('updatenotes.html',note_data=note_data)
     
@@ -197,6 +197,8 @@ def deletenotes(notes_id):
         cursor.close()
         flash(f'notes {notes_id} deleted succesfully')
         return redirect(url_for('panel'))
+
+
         
         
     
