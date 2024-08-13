@@ -1,10 +1,11 @@
-from flask import Flask,render_template,url_for,request,redirect,flash,session
+from flask import Flask,render_template,url_for,request,redirect,flash,session,send_file
 from flask_session import Session
 import mysql.connector
 from otp import genotp
 from cmail import sendmail
 from key import secret_key
 from stoken import token,dtoken
+from io import BytesIO
 
 app=Flask(__name__)
 app.config['SESSION_TYPE']='filesystem'
@@ -197,6 +198,65 @@ def deletenotes(notes_id):
         cursor.close()
         flash(f'notes {notes_id} deleted succesfully')
         return redirect(url_for('panel'))
+    
+@app.route("/fileupload",methods=["GET","POST"])
+def fileupload():
+    if not session.get('email'):
+        return redirect(url_for('login'))
+    else:
+        if request.method=="POST":
+            file=request.files['file']
+            file_name=file.filename
+            added_by=session.get('email')
+            file_data=file.read()
+            cursor=mydb.cursor(buffered=True)
+            cursor.execute('insert into files_data(file_name,file_data,added_by) values(%s,%s,%s)',[file_name,file_data,added_by])
+            mydb.commit()
+            cursor.close()
+            flash(f"file{file.filename} added successfully")
+            return redirect(url_for('panel'))
+            
+            # print(file_open.read())
+
+    return render_template("fileupload.html")
+
+@app.route('/viewall_files')
+def viewall_files():
+    if not session.get('email'):
+        return redirect(url_for('login'))
+    else:
+        added_by=session.get('email')
+        cursor=mydb.cursor(buffered=True)
+        cursor.execute('select f_id,file_name,created_at from files_data where added_by=%s',[added_by])
+        data=cursor.fetchall
+        return render_template('allfiles.html',data=data)
+app.run(debug=True,use_reloader=True)
+
+@app.route('/view_files/<fid>')
+def view_files(fid):
+    if not session.get('email'):
+        return redirect(url_for('login'))
+    else:
+        try:
+            cursor=mydb.cursor(buffered=True)
+            cursor.execute('select file_name,file_data from files_data where f_id=%s and added_y=%s',[fid.session.get('email')])
+            fname,fdata=cursor.fetchone()
+            bytes_data=BytesIO(fdata) 
+            filename=fname
+            return send_file(bytes_name,download_now,filename,as_attachment=False)
+        except Exception as e:
+            print(e)
+            return 'file not found'
+        finally:
+            cursor.close()
+        
+
+
+
+
+app.run(debug=True,use_reloader=True)
+    
+
 
 
         
