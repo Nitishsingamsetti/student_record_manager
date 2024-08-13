@@ -232,8 +232,8 @@ def viewall_files():
         return render_template('allfiles.html',data=data)
 app.run(debug=True,use_reloader=True)
 
-@app.route('/view_files/<fid>')
-def view_files(fid):
+@app.route('/view_file/<fid>')
+def view_file(fid):
     if not session.get('email'):
         return redirect(url_for('login'))
     else:
@@ -243,14 +243,31 @@ def view_files(fid):
             fname,fdata=cursor.fetchone()
             bytes_data=BytesIO(fdata) 
             filename=fname
-            return send_file(bytes_name,download_now,filename,as_attachment=False)
+            return send_file(bytes_data,download_name=filename,as_attachment=False)
         except Exception as e:
             print(e)
             return 'file not found'
         finally:
             cursor.close()
         
-
+@app.route('/download_file/<fid>')
+def download_files(fid):
+    if not session.get('email'):
+        return redirect(url_for('login'))
+    else:
+        try:
+            cursor=mydb.cursor(buffered=True)
+            cursor.execute('select file_name,file_data from files_data where f_id=%s and added_y=%s',[fid.session.get('email')])
+            fname,fdata=cursor.fetchone()
+            bytes_data=BytesIO(fdata) 
+            filename=fname
+            return send_file(bytes_data,download_name=filename,as_attachment=True)
+        except Exception as e:
+            print(e)
+            return 'file not found'
+        finally:
+            cursor.close()
+        
 
 
 
