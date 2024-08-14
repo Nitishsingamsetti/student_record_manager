@@ -108,7 +108,7 @@ def login():
                 #redirect(url_for('panel'))
                 else:
                     return flash('invalid password')
-    return render_template('login.html')
+        return render_template('login.html')
 
 @app.route('/addnotes',methods=['POST','GET'])
 def addnotes():
@@ -268,8 +268,8 @@ def download_files(f_id):
         finally:
             cursor.close()
 
-@app.route('/forgot_password',methods=['GET','POST'])
-def forgot_password():
+@app.route('/forgotpassword',methods=['GET','POST'])
+def forgotpassword():
     if session.get('email'):
         redirect(url_for('login'))
     else:
@@ -280,10 +280,10 @@ def forgot_password():
             count=cursor.fetchone()[0]
             if count==0:
                 flash('Email not exists please register')
-                return redirect(url_for('sign'))
+                return redirect(url_for('signup'))
             elif count==1:  
                 subject="Resent link for SPM application"
-                body=f'Registration otp for SPM application {url_for('reset',token(data=email),_external=True)}'
+                body=f'Resent link for SPM application {url_for("reset",token(data=email),_external=True)}'
                 sendmail(to=email,subject=subject,body=body)
                 flash('Reset link has been sent to your given Email')
             else:
@@ -291,9 +291,27 @@ def forgot_password():
         
     return render_template('forgot.html')
 
-@app.route('/reset/<data>')
+@app.route('/reset/<data>',methods=['GET','POST'])
 def reset(data):
-    return 'done'
+    try:
+        email=dtoken(data=data)
+    except Exception as e:
+        print(e)
+        return 'something went wrong'
+    else:
+        if request.method=='POST':
+            npassword=request.form['npwd']
+            cpassword=request.form['cpwd']
+            if npassword==cpassword:
+                cursor=mydb.cursor(buffered=True)
+                cursor.execute('update stu_info set password=%s where email=%s',[npassword,email])
+                mydb.commit()
+                cursor.close()
+                flash('succesfully update password')
+                return redirect(url_for('login'))
+            
+                    
+    return render_template('newpassword.html')
 
             
 
