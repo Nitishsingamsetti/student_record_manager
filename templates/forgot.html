@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+     <h1><center>{{ message }}</center></h1>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
 
 <body>
     <form method="post">
