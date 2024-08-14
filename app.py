@@ -267,6 +267,38 @@ def download_files(f_id):
             return 'file not found'
         finally:
             cursor.close()
+
+@app.route('/forgot_password',methods=['GET','POST'])
+def forgot_password():
+    if session.get('email'):
+        redirect(url_for('login'))
+    else:
+        if request.method=='POST':
+            email=request.form['email']
+            cursor=mydb.cursor(buffered=True)
+            cursor.execute('select count(email) from stu_info where email=%s',[email])
+            count=cursor.fetchone()[0]
+            if count==0:
+                flash('Email not exists please register')
+                return redirect(url_for('sign'))
+            elif count==1:  
+                subject="Resent link for SPM application"
+                body=f'Registration otp for SPM application {url_for('reset',token(data=email),_external=True)}'
+                sendmail(to=email,subject=subject,body=body)
+                flash('Reset link has been sent to your given Email')
+            else:
+                'something went wrong'
+        
+    return render_template('forgot.html')
+
+@app.route('/reset/<data>')
+def reset(data):
+    return 'done'
+
+            
+
+
+
         
 
 
