@@ -232,14 +232,14 @@ def viewall_files():
         return render_template('allfiles.html',data=data)
 app.run(debug=True,use_reloader=True)
 
-@app.route('/view_file/<fid>')
-def view_file(fid):
+@app.route('/view_file/<f_id>')
+def view_file(f_id):
     if not session.get('email'):
         return redirect(url_for('login'))
     else:
         try:
             cursor=mydb.cursor(buffered=True)
-            cursor.execute('select file_name,file_data from files_data where f_id=%s and added_y=%s',[fid.session.get('email')])
+            cursor.execute('select file_name,file_data from files_data where f_id=%s and added_y=%s',[f_id.session.get('email')])
             fname,fdata=cursor.fetchone()
             bytes_data=BytesIO(fdata) 
             filename=fname
@@ -250,14 +250,14 @@ def view_file(fid):
         finally:
             cursor.close()
         
-@app.route('/download_file/<fid>')
-def download_files(fid):
+@app.route('/download_file/<f_id>')
+def download_files(f_id):
     if not session.get('email'):
         return redirect(url_for('login'))
     else:
         try:
             cursor=mydb.cursor(buffered=True)
-            cursor.execute('select file_name,file_data from files_data where f_id=%s and added_y=%s',[fid.session.get('email')])
+            cursor.execute('select file_name,file_data from files_data where f_id=%s and added_y=%s',[f_id.session.get('email')])
             fname,fdata=cursor.fetchone()
             bytes_data=BytesIO(fdata) 
             filename=fname
