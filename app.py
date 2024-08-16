@@ -7,9 +7,12 @@ from key import secret_key
 from stoken import token, dtoken
 from io import BytesIO
 import re
+import flask_excel as excel
+
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
+excel.init_excel(app)
 app.secret_key = secret_key
 Session(app)
 mydb = mysql.connector.connect(host='localhost', user='root', password='nitish', db='spm')
@@ -316,9 +319,16 @@ def search():
 def getexcel_data():
     if not session.get('email'):
         return redirect(url_for('login'))
+    else:
+        user=session.get('email')
+        columns=['title','content','Data']
+        cursor=mydb.cursor(buffered=True)
+        cursor.execute('select title,note_content,created_at from notes where added_by=%s',[user])
+        data=cursor.fetchall()
+        array_data=[list(i) for i in data]
+        array_data.insert(0,columns)
+        return excel.make_response_from_array(array_data,'xlsx',filename='NotesData')
     
-
-
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
