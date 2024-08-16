@@ -308,9 +308,14 @@ def search():
                 return render_template('panel.html',sname=sname,fname=fname)
             else:
                 flash('result nor found')
-                return render_template(url_for('panel'))
-        else:
-            return redirect(url_for('login'))
+                return redirect(url_for('panel'))
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/getexcel_data')
+def getexcel_data():
+    if not session.get('email'):
+        return redirect(url_for('login'))
     
 
 
