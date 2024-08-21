@@ -16,6 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `files_data`
+--
+
+DROP TABLE IF EXISTS `files_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `files_data` (
+  `f_id` int NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(50) NOT NULL,
+  `file_data` longblob,
+  `added_by` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`f_id`),
+  UNIQUE KEY `file_name` (`file_name`),
+  KEY `added_by` (`added_by`),
+  CONSTRAINT `files_data_ibfk_1` FOREIGN KEY (`added_by`) REFERENCES `stu_info` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `files_data`
+--
+
+LOCK TABLES `files_data` WRITE;
+/*!40000 ALTER TABLE `files_data` DISABLE KEYS */;
+/*!40000 ALTER TABLE `files_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `notes`
 --
 
@@ -82,4 +111,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-16 12:33:25
+-- Dump completed on 2024-08-21 11:02:51
